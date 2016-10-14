@@ -28,7 +28,7 @@ public class SampleAdapter extends ArrayRecyclerAdapter<String,SampleAdapter.Ite
          *
          * @param itemView the Views holder
          */
-        public TrainingViewHolder(View itemView) {
+        public ItemViewHolder(View itemView) {
             super(itemView);
         }
 
