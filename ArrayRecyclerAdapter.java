@@ -1,4 +1,4 @@
-package com.oxylane.android.cubeinstore.ui.adapter;
+package com.maximej.tools.ui.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +11,7 @@ import java.util.List;
  * @author Maxime Jallu
  * @since 30/06/2016
  *
- * Create for CubeInStore - Android (Decathlon)
+ * Create for CubeInStore - Android
  *
  * Use this Class for : <br/>
  * Crée un adapteur de recycler view de base
