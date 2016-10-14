@@ -1,4 +1,4 @@
-package com.oxylane.android.cubeinstore.ui.viewholder;
+package com.maximej.tools.ui.viewholder;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
  * @author Maxime Jallu
  * @since 30/06/2016
  *
- * Create for CubeInStore - Android (Decathlon)
+ * Create for CubeInStore - Android 
  *
  * Use this Class for : <br/>
  * make it easier ViewHolder adapter recyclerView, define T type of item
