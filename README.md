@@ -45,3 +45,8 @@ public class SampleAdapter extends ArrayRecyclerAdapter<String,SampleAdapter.Ite
     }
 }
 ```
+
+# ItemDecoration
+```java
+mRecyclerView.addItemDecoration(new FooterDecoration(getContext(), this, R.layout.item_space_80));
+```
