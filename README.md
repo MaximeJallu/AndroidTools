@@ -1,5 +1,6 @@
-# DividerItemDecoration
-Android - DividerItemDecoration - RecyclerView
+# Android : Recycler Tools
+- ArrayAdapter
+- ItemDecoration (Divider - Header - Footer) 
 
 
 # ArrayRecyclerAdapter
