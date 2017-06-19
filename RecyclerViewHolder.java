@@ -1,4 +1,4 @@
-package com.maximej.tools.ui.viewholder;
+package com.oxylane.android.cubeinstore.ui.viewholder;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -15,28 +15,32 @@ import butterknife.ButterKnife;
 
 /**
  * @author Maxime Jallu
- * @since 30/06/2016
- *
- * Create for CubeInStore - Android 
- *
- * Use this Class for : <br/>
- * make it easier ViewHolder adapter recyclerView, define T type of item
- * Must to use in ArrayRecyclerAdapter
  * @link ArrayRecyclerAdapter
- *
+ * <p>
  * Tools this class:<br/>
- *
+ * <p>
  * getContext()
  * getColor(@ColorRes res)
  * getDrawable(@DrawableRes res)
+ * @since 30/06/2016
+ * <p>
+ * Create for CubeInStore - Android (Decathlon)
+ * <p>
+ * Use this Class for : <br/>
+ * make it easier ViewHolder adapter recyclerView, define T type of item
+ * Must to use in ArrayRecyclerAdapter
  */
 public abstract class RecyclerViewHolder<T> extends RecyclerView.ViewHolder {
 
+    private T mItem;
+    private boolean isBound;
+
     /**
      * This super() auto BindViews with ButterKnife<br/>
-     *  <code>
-     *      ButterKnife.bind(this, itemView);
-     *  </code>
+     * <code>
+     * ButterKnife.bind(this, itemView);
+     * </code>
+     *
      * @param itemView the Views holder
      */
     @SuppressLint("NewApi")
@@ -51,23 +55,39 @@ public abstract class RecyclerViewHolder<T> extends RecyclerView.ViewHolder {
         return itemView.getContext();
     }
 
-    public final String getString(@StringRes int stringRes){
+    public final String getString(@StringRes int stringRes) {
         return getContext().getString(stringRes);
     }
 
-    public final String getQuantityString(@PluralsRes int pluralRes, int quantity){
-        return getContext().getResources().getQuantityString(pluralRes, quantity);
-    }
-
-    public final String getQuantityStringFormat(@PluralsRes int pluralRes, int quantity){
+    public final String getQuantityString(@PluralsRes int pluralRes, int quantity) {
         return getContext().getResources().getQuantityString(pluralRes, quantity, quantity);
     }
 
-    public final int getColor(@ColorRes int colorResId){
+    public final String getQuantityStringFormat(@PluralsRes int pluralRes, int quantity) {
+        return getContext().getResources().getQuantityString(pluralRes, quantity, quantity);
+    }
+
+    public final int getColor(@ColorRes int colorResId) {
         return ContextCompat.getColor(getContext(), colorResId);
     }
 
-    public final Drawable getDrawable(@DrawableRes int drawableResId){
+    public final Drawable getDrawable(@DrawableRes int drawableResId) {
         return ContextCompat.getDrawable(getContext(), drawableResId);
+    }
+
+    public boolean isBound() {
+        return isBound;
+    }
+
+    public void setBound(boolean bound) {
+        isBound = bound;
+    }
+
+    public void setItem(T item) {
+        mItem = item;
+    }
+
+    public T getItem() {
+        return mItem;
     }
 }
