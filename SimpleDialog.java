@@ -13,9 +13,6 @@ import com.oxylane.android.cubeinstore.ui.fragment.DefaultDialogBuilder;
 /**
  * @author Maxime Jallu
  * @since 02/08/2016
- * <p>
- * Create for CubeInStore - Android (Decathlon)
- * <p>
  * Use this Class for : <br/>
  * ... {DOCUMENTATION}
  */
@@ -67,18 +64,6 @@ public class SimpleDialog extends BaseDialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder dialog = DefaultDialogBuilder.getDefaultBuilder(getActivity(), mTitle, mMessage);
         new AlertDialog.Builder(getContext());
-
-//        final View rootView = getLayoutInflater(savedInstanceState).inflate(R.layout.default_dialog, null);
-//
-//        TextView titleView = (TextView) rootView.findViewById(R.id.default_dialog_title);
-//        TextView textView = (TextView) rootView.findViewById(R.id.default_dialog_text);
-//        titleView.setText(mTitle);
-//        textView.setText(mMessage);
-//
-//        dialog.setView(rootView);
-
-        //dialog.setTitle(mTitle);
-        //dialog.setMessage(mMessage);
 
         dialog.setPositiveButton(mNegativeShow ? R.string.yes : android.R.string.ok, (dialog1, which) -> {
             if (getContext() instanceof SimpleDialogPositive) {
