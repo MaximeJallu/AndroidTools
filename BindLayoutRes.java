@@ -10,9 +10,6 @@ import java.lang.annotation.Target;
 /**
  * @author Maxime Jallu
  * @since 09/06/2017
- * <p>
- * Create for CubeInStore - Android (Decathlon)
- * <p>
  * Use this Class for : <br/>
  * ... {DOCUMENTATION}
  */
