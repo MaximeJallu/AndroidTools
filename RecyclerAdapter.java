@@ -16,9 +16,6 @@ import java.util.List;
 /**
  * @author Maxime Jallu
  * @since 03/05/2017
- * <p>
- * Create for CubeInStore - Android (Decathlon)
- * <p>
  * Use this Class for : <br/>
  * ... {DOCUMENTATION}
  */
