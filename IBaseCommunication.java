@@ -5,9 +5,6 @@ import android.annotation.SuppressLint;
 /**
  * @author Maxime Jallu
  * @since 10/05/2017
- * <p>
- * Create for CubeInStore - Android (Decathlon)
- * <p>
  * Use this Class for : <br/>
  * ... {DOCUMENTATION}
  */
