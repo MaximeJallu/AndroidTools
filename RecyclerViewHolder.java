@@ -23,9 +23,6 @@ import butterknife.ButterKnife;
  * getColor(@ColorRes res)
  * getDrawable(@DrawableRes res)
  * @since 30/06/2016
- * <p>
- * Create for CubeInStore - Android (Decathlon)
- * <p>
  * Use this Class for : <br/>
  * make it easier ViewHolder adapter recyclerView, define T type of item
  * Must to use in ArrayRecyclerAdapter
