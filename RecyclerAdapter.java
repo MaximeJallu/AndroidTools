@@ -19,20 +19,40 @@ import java.util.List;
  * Use this Class for : <br/>
  * ... {DOCUMENTATION}
  */
-
 public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerViewHolder<T>> {
 
     private List<T> mTList;
     private ViewHolderFactory<T> mFactory;
     private IAdapterChanged mAdapterChanged;
 
-    public RecyclerAdapter(ViewHolderFactory<T> factory){
-        this(new ArrayList<>(), factory);
+    public RecyclerAdapter() {
+        mTList = new ArrayList<>();
     }
 
-    public RecyclerAdapter(List<T> TList, ViewHolderFactory<T> factory) {
+    public RecyclerAdapter(ViewHolderFactory<T> factory) {
+        this(new ArrayList<>(), factory, null, null);
+    }
+
+    public RecyclerAdapter(Class<? extends RecyclerViewHolder<T>> viewHolderType) {
+        this(new ArrayList<>(), viewHolderType, null, null);
+    }
+
+    public RecyclerAdapter(Class<? extends RecyclerViewHolder<T>> viewHolderType, @Nullable IBaseCommunication callback) {
+        this(new ArrayList<>(), viewHolderType, callback, null);
+    }
+
+    public RecyclerAdapter(List<T> TList, Class<? extends RecyclerViewHolder<T>> viewHolderType) {
+        this(TList, viewHolderType, null, null);
+    }
+
+    public RecyclerAdapter(List<T> TList, Class<? extends RecyclerViewHolder<T>> viewHolderType, @Nullable IBaseCommunication callback) {
+        this(TList, new ViewHolderFactory<>(viewHolderType), callback);
+    }
+
+    public RecyclerAdapter(List<T> TList, ViewHolderFactory<T> factory, @Nullable IBaseCommunication callback) {
         mTList = TList;
         mFactory = factory;
+        mFactory.setCommunication(callback);
     }
 
     public void setFactory(ViewHolderFactory<T> factory) {
@@ -41,8 +61,13 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerViewHolder<
 
     @Override
     public RecyclerViewHolder<T> onCreateViewHolder(ViewGroup parent, int viewType) {
-        return mFactory.createVH(LayoutInflater.from(parent.getContext())
+        if (mFactory == null) {
+            throw new AccessControlException("mFactory is not instancied. thanks use setFactory() method.");
+        }
+        RecyclerViewHolder<T> vh = mFactory.createVH(LayoutInflater.from(parent.getContext())
                 .inflate(mFactory.getLayoutRes(viewType), parent, false), viewType);
+
+        return vh;
     }
 
 
@@ -61,23 +86,32 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerViewHolder<
 
     /**
      * Get Item
+     *
      * @param position position founded
      * @return instance to position
      */
-    public T getItem(int position){
+    public T getItem(int position) {
         return mTList.get(position);
     }
 
     @Override
     public int getItemViewType(int position) {
-        if(getItem(position) != null && getItem(position) instanceof IViewType){
+        if (getItem(position) != null && getItem(position) instanceof IViewType) {
             return ((IViewType) getItem(position)).getItemViewType();
         }
         return super.getItemViewType(position);
     }
 
-    protected void callChangedListener(){
-        if (mAdapterChanged != null){
+    public void putViewType(int viewType, Class<? extends RecyclerViewHolder<T>> viewHolder){
+        mFactory.putViewType(viewType, viewHolder);
+    }
+
+    public boolean contains(final T obj) {
+        return mTList.contains(obj);
+    }
+
+    protected void callChangedListener() {
+        if (mAdapterChanged != null) {
             mAdapterChanged.onItemCountChange(getItemCount());
         }
     }
@@ -86,16 +120,18 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerViewHolder<
         mAdapterChanged = adapterChanged;
     }
 
-    protected void setCommunication(IBaseCommunication communication){
+    public void setCommunication(IBaseCommunication communication) {
         mFactory.setCommunication(communication);
+        notifyDataSetChanged();
     }
 
     /**
      * Inserts the specified element at the specified position in this list (optional operation).
      * Shifts the element currently at that position (if any) and any subsequent elements to the right (adds one to their indices).
+     *
      * @param item element to be inserted
      */
-    public void addItem(T item){
+    public void addItem(T item) {
         if (mTList != null) {
             mTList.add(item);
             notifyItemInserted(mTList.size());
@@ -105,10 +141,11 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerViewHolder<
     /**
      * Inserts the specified element at the specified position in this list (optional operation).
      * Shifts the element currently at that position (if any) and any subsequent elements to the right (adds one to their indices).
-     * @param item element to be inserted
+     *
+     * @param item     element to be inserted
      * @param position index at which the specified element is to be inserted
      */
-    public void addItem(T item, int position){
+    public void addItem(T item, int position) {
         if (mTList != null) {
             position = Math.min(position, mTList.size());
             mTList.add(position, item);
@@ -119,10 +156,35 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerViewHolder<
     /**
      * Inserts the specified element at the specified position in this list (optional operation).
      * Shifts the element currently at that position (if any) and any subsequent elements to the right (adds one to their indices).
+     *
+     * @param collection elements to be inserted
+     */
+    public void addAll(List<T> collection) {
+        if (mTList != null) {
+            mTList.addAll(collection);
+            int start = Math.max(0, (mTList.size() - collection.size()) - 1);
+            notifyItemRangeInserted(start, collection.size());
+        }
+    }
+
+    /**
+     * Inserts the specified element at the specified position in this list (optional operation).
+     * Shifts the element currently at that position (if any) and any subsequent elements to the right (adds one to their indices).
+     *
+     * @param item the element to be removed
+     */
+    public void removeItem(T item) {
+        removeItem(getTList().indexOf(item));
+    }
+
+    /**
+     * Inserts the specified element at the specified position in this list (optional operation).
+     * Shifts the element currently at that position (if any) and any subsequent elements to the right (adds one to their indices).
+     *
      * @param position the index of the element to be removed
      */
-    public void removeItem(int position){
-        if (mTList != null) {
+    public void removeItem(int position) {
+        if (mTList != null && position > -1 && position < mTList.size()) {
             mTList.remove(position);
             notifyItemRemoved(position);
         }
@@ -130,19 +192,23 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerViewHolder<
 
     /**
      * Set new list items and notifyDataSetChanged()
-     * @link notifyDataSetChanged
+     *
      * @param list new instance items list for bind views
+     * @link notifyDataSetChanged
      */
-    public void updateItems(@NonNull List<T> list){
+    public void updateItems(@NonNull List<T> list) {
         mTList = list;
         notifyDataSetChanged();
     }
 
     /**
-     *
      * @return instance items list
      */
     public List<T> getTList() {
         return mTList;
+    }
+
+    public boolean isEmpty() {
+        return mTList == null || mTList.isEmpty();
     }
 }
