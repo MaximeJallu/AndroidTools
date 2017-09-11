@@ -5,7 +5,8 @@
 # RecyclerAdapter (Easy method)
 Sample :
 ```java
-public CustomerViewHolder extends RecyclerViewHolder<Customer> {
+@BindLayoutRes(R.layout.{name_of_your_layout})
+public class CustomerViewHolder extends RecyclerViewHolder<Customer> {
     CustomerViewHolder(View view){
         super(view);
     }
@@ -15,7 +16,7 @@ public CustomerViewHolder extends RecyclerViewHolder<Customer> {
     }
 }
 
-class MainFragment extends Fragment {
+public class MainFragment extends Fragment {
 ...
 private RecyclerAdapter<Customer> mAdapter;
 
