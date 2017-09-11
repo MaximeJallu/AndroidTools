@@ -2,8 +2,31 @@
 - ArrayAdapter
 - ItemDecoration (Divider - Header - Footer) 
 
+# RecyclerAdapter (Easy method)
+Sample :
+```java
+public CustomerViewHolder extends RecyclerViewHolder<Customer> {
+    CustomerViewHolder(View view){
+        super(view);
+    }
+    
+    void onBind(Customer item){
+        //todo implements
+    }
+}
 
-# ArrayRecyclerAdapter
+class MainFragment extends Fragment {
+...
+private RecyclerAdapter<Customer> mAdapter;
+
+void onCreate(...){
+    mAdapter = new RecyclerAdapter(customerList, CustomerViewHolder.class);
+}
+...
+}
+```
+
+# ArrayRecyclerAdapter (other method)
 Sample : 
 ```java
 public class SampleAdapter extends ArrayRecyclerAdapter<String,SampleAdapter.ItemViewHolder> {
