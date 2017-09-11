@@ -2,8 +2,8 @@
 - ArrayAdapter
 - ItemDecoration (Divider - Header - Footer) 
 
-# RecyclerAdapter (Easy method)
-Sample :
+# RecyclerAdapter (Easy sample method)
+CustomerViewHolder.class :
 ```java
 @BindLayoutRes(R.layout.{name_of_your_layout})
 public class CustomerViewHolder extends RecyclerViewHolder<Customer> {
@@ -15,7 +15,10 @@ public class CustomerViewHolder extends RecyclerViewHolder<Customer> {
         //todo implements
     }
 }
+```
 
+MainFragment.class
+```java
 public class MainFragment extends Fragment {
 ...
 private RecyclerAdapter<Customer> mAdapter;
