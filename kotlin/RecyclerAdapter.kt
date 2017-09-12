@@ -27,14 +27,13 @@ open class RecyclerAdapter<T> : RecyclerView.Adapter<RecyclerViewHolder<T>> {
         mTList = ArrayList()
     }
 
-    constructor(factory: ViewHolderFactory<T>) : this(ArrayList<T>(), factory, null) {}
+    constructor(factory: ViewHolderFactory<T>) : this(ArrayList<T>(), factory, null)
 
-    constructor(viewHolderType: Class<out RecyclerViewHolder<T>>) : this(ArrayList<T>(), viewHolderType, null) {}
+    constructor(viewHolderType: Class<out RecyclerViewHolder<T>>) : this(ArrayList<T>(), viewHolderType, null)
 
-    constructor(viewHolderType: Class<out RecyclerViewHolder<T>>, callback: IBaseCommunication<*>?) : this(ArrayList<T>(), viewHolderType, callback) {}
+    constructor(viewHolderType: Class<out RecyclerViewHolder<T>>, callback: IBaseCommunication<*>?) : this(ArrayList<T>(), viewHolderType, callback)
 
-    @JvmOverloads constructor(TList: MutableList<T>, viewHolderType: Class<out RecyclerViewHolder<T>>, callback: IBaseCommunication<*>? = null) : this(TList, ViewHolderFactory<T>(viewHolderType), callback) {}
-
+    constructor(TList: MutableList<T>, viewHolderType: Class<out RecyclerViewHolder<T>>, callback: IBaseCommunication<*>? = null) : this(TList, ViewHolderFactory<T>(viewHolderType), callback)
 
     constructor(TList: MutableList<T>, factory: ViewHolderFactory<T>, callback: IBaseCommunication<*>?) {
         mTList = TList
@@ -54,7 +53,6 @@ open class RecyclerAdapter<T> : RecyclerView.Adapter<RecyclerViewHolder<T>> {
         return mFactory!!.createVH(LayoutInflater.from(parent.context)
                 .inflate(mFactory!!.getLayoutRes(viewType), parent, false), viewType)
     }
-
 
     override fun onBindViewHolder(holder: RecyclerViewHolder<T>, position: Int) {
         holder.item = getItem(position)
