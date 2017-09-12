@@ -33,7 +33,7 @@ open class RecyclerAdapter<T> : RecyclerView.Adapter<RecyclerViewHolder<T>> {
 
     constructor(viewHolderType: Class<out RecyclerViewHolder<T>>, callback: IBaseCommunication<*>?) : this(ArrayList<T>(), viewHolderType, callback)
 
-    constructor(TList: MutableList<T>, viewHolderType: Class<out RecyclerViewHolder<T>>, callback: IBaseCommunication<*>? = null) : this(TList, ViewHolderFactory<T>(viewHolderType), callback)
+    @JvmOverloads constructor(TList: MutableList<T>, viewHolderType: Class<out RecyclerViewHolder<T>>, callback: IBaseCommunication<*>? = null) : this(TList, ViewHolderFactory<T>(viewHolderType), callback)
 
     constructor(TList: MutableList<T>, factory: ViewHolderFactory<T>, callback: IBaseCommunication<*>?) {
         mTList = TList
