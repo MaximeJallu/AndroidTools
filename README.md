@@ -29,6 +29,49 @@ void onCreate(...){
 ...
 }
 ```
+# RecyclerAdapter (Multi cell method)
+```java
+@BindLayoutRes(R.layout.{name_of_your_layout1})
+public class CustomerViewHolder1 extends RecyclerViewHolder<Customer> {
+    CustomerViewHolder1(View view){
+        super(view);
+    }
+    
+    void onBind(Customer item){
+        //todo implements
+    }
+}
+
+@BindLayoutRes(R.layout.{name_of_your_layout2})
+public class CustomerViewHolder2 extends RecyclerViewHolder<Customer> {
+    CustomerViewHolder2(View view){
+        super(view);
+    }
+    
+    void onBind(Customer item){
+        //todo implements
+    }
+}
+
+public class Customer implements IViewType {
+   public static final int TYPE_ON_LINE = 0; /*default*/
+   public static final int TYPE_STORE = 1;
+   public static final int TYPE_OTHER = 2;
+   private int mType;
+   
+   @Override
+    public int getItemViewType() {
+        return mType;
+    }
+}
+
+private RecyclerAdapter<Customer> mAdapter;
+
+mAdapter = new RecyclerAdapter(customerList, CustomerViewHolder1.class/*type par default*/);
+mAdapter.putViewType(Customer.TYPE_STORE, CustomerViewHolder2.class);
+mAdapter.putViewType(Customer.TYPE_OTHER, CustomerViewHolder3.class);
+mRecyclerView.setAdapter(adapter);
+```
 
 # ArrayRecyclerAdapter (other method)
 Sample : 
