@@ -1,0 +1,30 @@
+<RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1">
+
+   <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="20dp"
+      android:layout_alignParentBottom="true"
+      android:background="@drawable/bottom_shadow" />
+
+   <android.support.v7.widget.RecyclerView
+      android:id="@+id/recycler"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:fadeScrollbars="false" />
+</RelativeLayout>
+
+
+<!-- bottom_shadow.xml -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:bottom="2dp" android:left="2dp">
+        <shape>
+            <gradient android:angle="270"
+                android:endColor="#99BABABA" android:startColor="#00FFFFFF" />
+            <padding android:bottom="20dp" android:left="0dp"
+                android:right="0dp" android:top="0dp" />
+        </shape>
+    </item>
+</selector>
